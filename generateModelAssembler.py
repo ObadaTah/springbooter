@@ -1,7 +1,8 @@
-def generateModelAssembler(path, className):
+def generateModelAssembler(path, className, packageName):
     classFile = open(path + "ModelAssembler.java", "w")
     data = (
-        """
+        packageName
+        + """\n
     import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import org.springframework.hateoas.EntityModel;
@@ -40,9 +41,10 @@ class """
                                                 .withSelfRel(),
                                 linkTo(methodOn("""
         + className
-        + """Controller.class).all()).withRel("""
+        + """Controller.class).all()).withRel(
+            "+"""
         + className.lower()
-        + """s));
+        + """s"));
         }
 
 }

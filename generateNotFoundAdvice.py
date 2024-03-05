@@ -1,8 +1,9 @@
-def generateNotFoundAdvice(path, className):
+def generateNotFoundAdvice(path, className, packageName):
     classFile = open(path + "NotFoundAdvice.java", "w")
     data = (
-        """
-    
+        packageName
+        + """
+    \n
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class """
         + className
-        + """tNotFoundAdvice {
+        + """NotFoundAdvice {
 
   @ResponseBody
   @ExceptionHandler("""

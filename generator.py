@@ -4,36 +4,11 @@ import os
 classes = [
     {
         "className": "Payment",
-        "attr": {"name": "String", "date": "LocalDate", "type": "PaymentType"},
+        "attr": {"amount": "double", "date": "LocalDate", "type": "PaymentType"},
     },
     {
-        "className": "PaymentType",
-        "attr": {"name": "String", "description": "String"},
-    },
-    {
-        "className": "User",
-        "attr": {"name": "String", "email": "String", "password": "String"},
-    },
-    {
-        "className": "Product",
-        "attr": {
-            "name": "String",
-            "description": "String",
-            "price": "Double",
-            "quantity": "Integer",
-        },
-    },
-    {
-        "className": "Order",
-        "attr": {"date": "LocalDate", "total": "Double", "status": "OrderStatus"},
-    },
-    {
-        "className": "OrderStatus",
-        "attr": {"name": "String", "description": "String"},
-    },
-    {
-        "className": "OrderItem",
-        "attr": {"quantity": "Integer", "price": "Double", "product": "Product"},
+        "className": "Patient",
+        "attr": {"name": "String", "date": "LocalDate", "age": "Integer"},
     },
 ]
 
@@ -46,9 +21,12 @@ for c in classes:
     if not os.path.isdir(path):
         os.mkdir(path)
     path += "/" + c["className"]
-    generateClass.generateClass(path, c["className"], c["attr"])
-    generateController.generateController(path, c["className"], c["attr"])
-    generateModelAssembler.generateModelAssembler(path, c["className"])
-    generateNotFoundAdvice.generateNotFoundAdvice(path, c["className"])
-    generateRepository.generateRepository(path, c["className"])
-    generateNotFoundException.generateNotFoundException(path, c["className"])
+    packageName = "package " + "edu.bethlehem.test." + c["className"] + ";"
+    generateClass.generateClass(path, c["className"], c["attr"], packageName)
+    generateController.generateController(path, c["className"], c["attr"], packageName)
+    generateModelAssembler.generateModelAssembler(path, c["className"], packageName)
+    generateNotFoundAdvice.generateNotFoundAdvice(path, c["className"], packageName)
+    generateRepository.generateRepository(path, c["className"], packageName)
+    generateNotFoundException.generateNotFoundException(
+        path, c["className"], packageName
+    )

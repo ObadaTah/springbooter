@@ -1,42 +1,36 @@
-def generateController(path, className, attr):
+def generateController(path, className, attr, packageName):
     classFile = open(path + "Controller.java", "w")
     data = (
-        """
-    
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+        packageName
+        + """
+    \n
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.http.*;
 
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.hateoas.*;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 public class """
-        + className.lower()
+        + className
         + "Controller {\n"
         + """
 private final """
-        + className.lower()
-        + """ Repository repository;
+        + className
+        + """Repository repository;
     private final """
-        + className.lower()
+        + className
         + """ModelAssembler assembler;
     """
-        + className.lower()
+        + className
         + """Controller("""
-        + className.lower()
+        + className
         + """Repository repository, """
-        + className.lower()
+        + className
         + """ModelAssembler assembler) {
         this.repository = repository;
         this.assembler = assembler;
@@ -146,7 +140,7 @@ private final """
 
     data += (
         """ EntityModel<"""
-        + className.lower()
+        + className
         + """> entityModel = assembler.toModel(repository.save("""
         + className.lower()
         + """));
@@ -157,7 +151,7 @@ private final """
         + className
         + """.setId(id);
           EntityModel<"""
-        + className.lower()
+        + className
         + """> entityModel = assembler.toModel(repository.save(new"""
         + className
         + """));
@@ -187,7 +181,7 @@ private final """
     return ResponseEntity.noContent().build();
 
   }
-    
+    }
 """
     )
     classFile.write(data)

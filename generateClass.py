@@ -1,10 +1,13 @@
-def generateClass(path, className, attr):
+def generateClass(path, className, attr, packageName):
     classFile = open(path + ".java", "w")
     data = (
-        """import jakarta.persistence.Entity;
+        packageName
+        + """\nimport jakarta.persistence.Entity;
     import jakarta.persistence.GeneratedValue;
     import jakarta.persistence.Id;
     import lombok.Data;
+    import java.time.LocalDate;
+
 
     @Data
     @Entity

@@ -1,8 +1,9 @@
-def generateRepository(path, className):
+def generateRepository(path, className, packageName):
     classFile = open(path + "Repository.java", "w")
     data = (
-        """
-    
+        packageName
+        + """
+    \n
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface """
